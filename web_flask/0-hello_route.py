@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""write script start flask"""
 
 from flask import Flask
 
