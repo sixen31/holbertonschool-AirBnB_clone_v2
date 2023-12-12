@@ -3,7 +3,7 @@
 
 from flask import Flask, render_template
 from models import storage
-from models.state import Statei
+from models.state import State
 
 app = Flask(__name__)
 
@@ -46,15 +46,16 @@ def number_odd_or_even(n):
     return render_template(template, n=n, odd_even=odd_even)
 
 
-@app.teardown_appcontext
-def teardown(self):
-    storage.close()
-
 @app.route('/states_list', strict_slashes=False)
 def states_list():
-    states = list(storage.all(State).values())
-    states.sort(key=lambda x: x.name)
+    states = storage.all(State).values()
+    states = sorted(states, key=lambda state: state.name)
     return render_template('7-states_list.html', states=states)
+
+
+@app.teardown_appcontext
+def teardown_appcontext(exception):
+    storage.close()
 
 
 if __name__ == '__main__':
