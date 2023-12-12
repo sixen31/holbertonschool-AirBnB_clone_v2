@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 @app.route('/states_list', strict_slashes=False)
 def states_list():
+    """Function state_list"""
     states = storage.all(State).values()
     states = sorted(states, key=lambda state: state.name)
     return render_template('7-states_list.html', states=states)
@@ -16,6 +17,7 @@ def states_list():
 
 @app.teardown_appcontext
 def teardown_appcontext(exception):
+    """the function teardown"""
     storage.close()
 
 
