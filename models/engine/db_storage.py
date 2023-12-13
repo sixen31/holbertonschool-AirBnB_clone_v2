@@ -68,12 +68,13 @@ class DBStorage:
         self.__session.commit()
 
     def reload(self):
+        classes = (User, State, City, Amenity, Place, Review)
         Base.metadata.create_all(self.__engine)
         SessionFactory = sessionmaker(
             bind=self.__engine,
             expire_on_commit=False
         )
-        if not self.__session:
+        if self.__session is None:
             self.__session = scoped_session(SessionFactory)()
 
     def close(self):
