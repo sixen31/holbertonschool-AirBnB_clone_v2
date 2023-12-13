@@ -1,15 +1,12 @@
 #!/usr/bin/python3
-"""State modele for project AirBnb"""
 import os
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-
 from models.base_model import BaseModel, Base
 from models.city import City
 
 
 class State(BaseModel, Base):
-    """ State class """
     __tablename__ = 'states'
     name = Column(
         String(128), nullable=False
@@ -23,7 +20,6 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
-            """Returns the cities in this State"""
             from models import storage
             cities_in_state = []
             for value in storage.all(City).values():
