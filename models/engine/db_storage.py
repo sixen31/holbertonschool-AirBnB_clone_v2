@@ -34,8 +34,7 @@ class DBStorage():
         self.__session = Session()
 
     def all(self, cls=None):
-        """Returns a dictionary of all objects in
-        the given class or in all classes"""
+        """Returns a dictionary of all objects in the given class or in all classes"""
         if cls is not None:
             query = self.__session.query(cls).all()
         else:
