@@ -12,14 +12,14 @@ app = Flask(__name__)
 @app.route("/states_list", strict_slashes=False)
 def state_list():
     """
-    The function `state_list` retrieves a list of states
+    The function `state_list` retrieves a sorted list of states
     from storage and renders a template with the
-    list of states.
+    sorted list of states.
     :return: the rendered template "7-states_list.html"
     with the variable "list_states" set to the value
     of the "states" variable.
     """
-    states = list(storage.all(State).values())
+    states = sorted(list(storage.all(State).values()), key=lambda x: x.name)
     return render_template("7-states_list.html", states=states)
 
 
