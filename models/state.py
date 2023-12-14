@@ -17,13 +17,18 @@ class State(BaseModel, Base):
     else:
         name = ""
 
-    @property
-    def cities(self):
-        """Getter attribute. Returns the list of City instances with state_id matching
-        the current State.id"""
-        from models import storage
-        my_cities = []
+@property
+def cities(self):
+    """Getter attribute. Returns the list of City instances with state_id matching
+    the current State.id"""
+    from models import storage
+    my_cities = []
+    if os.getenv("HBNB_TYPE_STORAGE") == "db":
         for city in storage.all(City).values():
             if self.id == city.state_id:
                 my_cities.append(city)
-        return my_cities
+    else:
+        for city in storage.all(City).values():
+            if self.id == city.state_id:
+                my_cities.append(city)
+    return my_cities
